@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Онолбаатарын Балган - CV</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+  font-family: 'Montserrat', sans-serif;
+  background: #f2f2f2;
+  display: flex;
+  justify-content: center;
+  align-items: start; /* нэмсэн */
+  min-height: 100vh;
+  padding: 40px;
+}
+
+    /* Login Box */
+    #login-box {
+      max-width: 400px;
+      margin: auto;
+      padding: 40px;
+      background: #fff;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    #login-box h2 {
+      margin-bottom: 20px;
+      color: #0d2c40;
+    }
+
+    #login-box input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    #login-box button {
+      padding: 10px 20px;
+      background: #0d2c40;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    #login-box button:hover {
+      background: #1a4159;
+    }
+
+    .error-msg {
+      color: red;
+      margin-bottom: 10px;
+    }
+
+    /* Resume Style */
+    .resume {
+      min-height: 100%;
+      display: flex;
+      width: 1000px;
+      background: #fff;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      flex-wrap: wrap;
+      transition: transform 0.3s ease-in-out;
+
+      align-items: stretch; /* ✅ Зүүн ба баруун хэсгийг ижил өндөртэй болгоно */
+   }
+
+    .resume:hover {
+      transform: scale(1.02);
+    }
+
+    .left {
+      width: 35%;
+      background: #0d2c40;
+      color: #fff;
+      padding: 30px 20px;
+    }
+
+    .left img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+
+    .left h2, .left h4, .section-title, .left p, .left li {
+      transition: all 0.3s ease;
+    }
+
+    .left h2 {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+
+    .left h4 {
+      font-size: 14px;
+      font-weight: 400;
+      margin-bottom: 20px;
+      color: #a0d4f7;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: bold;
+      margin: 25px 0 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-bottom: 1px solid #aaa;
+      padding-bottom: 5px;
+    }
+
+    .left ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .right {
+      width: 65%;
+      padding: 30px 40px;
+    }
+
+    .right h3 {
+      color: #0d2c40;
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+
+    .right section {
+      margin-bottom: 25px;
+    }
+
+    .right p {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    .left, .right {
+  display: flex;
+  flex-direction: column;
+   }
+
+    .exp-title {
+      font-weight: bold;
+      color: #007bff;
+    }
+
+    .skills-bar {
+      background: #e0e0e0;
+      height: 8px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .skills-bar div {
+      height: 8px;
+      background: #007bff;
+    }
+
+    /* Edit buttons */
+    #edit-controls {
+      text-align: right;
+      padding: 10px;
+      width: 100%;
+    }
+
+    #edit-controls button {
+      padding: 6px 12px;
+      margin-left: 5px;
+      border: none;
+      border-radius: 5px;
+      background: #007bff;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    #edit-controls button:hover {
+      background: #0056b3;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .resume {
+        flex-direction: column;
+        width: 100%;
+        padding: 20px;
+      }
+
+      .left, .right {
+        width: 100%;
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN BOX -->
+  <div id="login-box">
+    <h2>Нэвтрэх</h2>
+    <div class="error-msg" id="error-msg"></div>
+    <input type="text" id="username" placeholder="Хэрэглэгчийн нэр">
+    <input type="password" id="password" placeholder="Нууц үг">
+    <button onclick="login()">Нэвтрэх</button>
+  </div>
+
+  <!-- RESUME BOX -->
+  <div class="resume" id="resume-box" style="display: none;">
+    <div id="edit-controls">
+      <button id="edit-btn" onclick="enableEdit()">✏️ Засварлах</button>
+      <button id="save-btn" onclick="saveEdit()" style="display: none;">💾 Хадгалах</button>
+      <button onclick="downloadPDF()">📄 Татах</button>
+    </div>
+
+    <div class="left">
+      <center>
+        <img src="img1.jpg" alt="Таны зураг">
+        <h2 id="name" contenteditable="false">Онолбаатарын Балган</h2>
+        <h4 id="title" contenteditable="false">Програм хангамжийн оюутан</h4>
+      </center>
+      <div class="section-title">ХОЛБОО БАРИХ</div>
+      <p id="phone" contenteditable="false">📞 90920214</p>
+      <p id="email" contenteditable="false">✉️ balganbalgan204@gmail.com</p>
+      <p id="address" contenteditable="false">📍 БЗД, 5-р хороо, Улаанбаатар</p>
+
+      <div class="section-title">БОЛОВСРОЛ</div>
+      <p id="edu1" contenteditable="false"><strong>ИЗОУИС</strong><br>Програм хангамж<br>2022 – Одоо</p>
+      <p id="edu2" contenteditable="false"><strong>Завхан 4-р сургууль</strong><br>2011 – 2022</p>
+
+      <div class="section-title">ХЭЛНИЙ ЧАДВАР</div>
+      <ul>
+        <li contenteditable="false">Монгол</li>
+        <li contenteditable="false">Англи (дунд)</li>
+      </ul>
+    </div>
+
+    <div class="right">
+      <section>
+        <h3>ТАНИЛЦУУЛГА</h3>
+        <p id="intro" contenteditable="false">Компьютерийн програм хангамжийн чиглэлээр сурч буй оюутан. Шинэ зүйл сурч, технологийн салбарт хөгжин дэвших хүсэлтэй.</p>
+      </section>
+
+      <section>
+        <h3>ТУРШЛАГА</h3>
+        <p id="experience" contenteditable="false"><span class="exp-title">2024 – Одоо | Web Developer Intern</span><br>Компьютерын танилцуулга сайт хийж сурсан (HTML, CSS, JS).</p>
+      </section>
+
+      <section>
+        <h3>МЭРГЭШИЛ</h3>
+        <p>HTML</p>
+        <div class="skills-bar"><div style="width: 90%;"></div></div>
+        <p>CSS</p>
+        <div class="skills-bar"><div style="width: 85%;"></div></div>
+        <p>Python</p>
+        <div class="skills-bar"><div style="width: 80%;"></div></div>
+        <p>Excel</p>
+        <div class="skills-bar"><div style="width: 75%;"></div></div>
+      </section>
+
+      <section>
+        <h3>СОНИРХОЛ</h3>
+        <p id="hobby" contenteditable="false">🏀 Сагсан бөмбөг, 🎹 Төгөлдөр хуур, 🎧 Хөгжим, 🎮 Видео тоглоом</p>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    function login() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const errorMsg = document.getElementById("error-msg");
+
+      if (username === "admin" && password === "1234") {
+        document.getElementById("login-box").style.display = "none";
+        document.getElementById("resume-box").style.display = "flex";
+        loadData();
+      } else {
+        errorMsg.textContent = "Хэрэглэгчийн нэр эсвэл нууц үг буруу байна!";
+      }
+    }
+
+    function enableEdit() {
+      const fields = document.querySelectorAll('[contenteditable]');
+      fields.forEach(f => f.contentEditable = "true");
+
+      document.getElementById("edit-btn").style.display = "none";
+      document.getElementById("save-btn").style.display = "inline-block";
+    }
+
+    function saveEdit() {
+      const fields = document.querySelectorAll('[contenteditable]');
+      fields.forEach(f => f.contentEditable = "false");
+
+      document.getElementById("edit-btn").style.display = "inline-block";
+      document.getElementById("save-btn").style.display = "none";
+
+      // Save to localStorage
+      fields.forEach(f => {
+        localStorage.setItem(f.id, f.innerHTML);
+      });
+
+      alert("Засвар хадгалагдлаа!");
+    }
+
+    function loadData() {
+      const fields = document.querySelectorAll('[contenteditable]');
+      fields.forEach(f => {
+        const data = localStorage.getItem(f.id);
+        if (data) {
+          f.innerHTML = data;
+        }
+      });
+    }
+
+    function downloadPDF() {
+      window.print();
+    }
+  </script>
+</body>
+</html>
